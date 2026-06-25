@@ -1,8 +1,8 @@
 ## Hades II Boss Rush
 
-Hades II mod adding a boss rush mode. Each biome starts at the final shop with 800 gold and an infinite Travel Deal.
+Hades II mod adding a boss rush mode. Compatible with Zag's Journey bosses. Each biome starts at the final shop with 800 gold (can be configured using the r2modman config editor) and an infinite Travel Deal.
 
-Only works in Dream Dives. Use the [Dream Dive Tweaks](https://old.thunderstore.io/c/hades-ii/p/zerp/DreamDiveTweaks/) mod to configure number/order of bosses.
+Only works in Dream Dives. Use the [Dream Dive Tweaks](https://old.thunderstore.io/c/hades-ii/p/zerp/DreamDiveTweaks/) mod's custom order option to configure the number/order of bosses.
 
 ## Installation
 

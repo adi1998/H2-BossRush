@@ -141,6 +141,11 @@ game.StoreData.BossRushWorldShop =
     }
 }
 
+function mod.AddBossRushMoney()
+    game.AddResource( "Money", config.shop_gold, _PLUGIN.guid .. "BossRush" )
+    game.CurrentRun.CurrentRoom[_PLUGIN.guid .. "BossRushMoneyAdded"] = true
+end
+
 local function getEventIndex(events, functionName)
     for index, event in ipairs(events) do
         if event.FunctionName == functionName then
@@ -173,9 +178,76 @@ for _, roomName in pairs(shopRoomMap) do
     end
 end
 
-function mod.AddBossRushMoney()
-    game.AddResource( "Money", config.shop_gold, _PLUGIN.guid .. "BossRush" )
-    game.CurrentRun.CurrentRoom[_PLUGIN.guid .. "BossRushMoneyAdded"] = true
+function mod.SetupFountainVisited(source, args)
+    game.CurrentRun.RoomCountCache = game.CurrentRun.RoomCountCache or {}
+    game.CurrentRun.RoomCountCache[source.Name] = (game.CurrentRun.RoomCountCache[source.Name] or 0) + 1
+end
+
+if game.RoomData["D_Intro"] then
+    local roomData = game.RoomData["D_Intro"]
+    roomData.StartUnthreadedEvents = roomData.StartUnthreadedEvents or {}
+    table.insert(roomData.StartUnthreadedEvents, {
+        FunctionName = "NikkelM-Zagreus_Journey" .. "." .. "SpawnConsumables",
+        Args =
+        {
+            Spawns =
+            {
+                {
+                    ConsumableName = "CerberusKey",
+                    DestinationId = 40055,
+                }
+            }
+        },
+        GameStateRequirements = {
+            {
+                PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
+            },
+        }
+    })
+    table.insert(roomData.StartUnthreadedEvents, {
+        FunctionName = _PLUGIN.guid .. "." .. "SetupFountainVisited",
+        GameStateRequirements = {
+            {
+                PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
+            },
+        }
+    })
+end
+
+if game.RoomData["D_Hub"] then
+    local roomData = game.RoomData["D_Hub"]
+    roomData.StartUnthreadedEvents = roomData.StartUnthreadedEvents or {}
+    table.insert(roomData.StartUnthreadedEvents, {
+        FunctionName = "UnlockDoor",
+        Args = { DoorId = 547460, RelockAllDoors = true, },
+        GameStateRequirements = {
+            {
+                PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
+            },
+        }
+    })
+    table.insert(roomData.StartUnthreadedEvents, {
+        FunctionName = "ExitNPCPresentation",
+        Args = {
+            InitialWaitTime = 0.2,
+            ObjectId = 547487,
+            TeleportToId = 551568,
+            DeleteId = 551569,
+            InitialExitSound = "/VO/CerberusGrowl",
+            FullFadeTime = 1.8,
+            EndSound = "/Leftovers/Menu Sounds/EmoteAffection",
+            UseAdditionalFootstepSounds = true,
+            EndUnlockTextTable = { "ClearedCerberus", "ClearedCerberus", "ClearedCerberus", "ClearedCerberus", "ClearedCerberus_Alt1", "ClearedCerberus_Alt1", "ClearedCerberus_Alt1", "ClearedCerberus_Alt1", "ClearedCerberus_A", "ClearedCerberus_B", "ClearedCerberus_C", "ClearedCerberus_D", "ClearedCerberus_E", "ClearedCerberus_F", "ClearedCerberus_G", "ClearedCerberus_H", "ClearedCerberus_I", "ClearedCerberus_J", "ClearedCerberus_K", "ClearedCerberus_L", "ClearedCerberus_M", "ClearedCerberus_N", "ClearedCerberus_O", "ClearedCerberus_P", "ClearedCerberus_Q" },
+            FootstepSound = "/Leftovers/SFX/FootstepsHuge",
+            MoveSound = "/Leftovers/SFX/BallImpact",
+            HeroVoiceLines = "ClearedCerberusVoiceLines"
+        },
+        GameStateRequirements = {
+            {
+                PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
+            },
+        }
+    })
 end
 
 modutil.mod.Path.Wrap("ChooseStartingRoom", function (base, currentRun, args)
