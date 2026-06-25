@@ -1,6 +1,6 @@
 local config = {
   enabled = true;
-  dream_dive_only = true;
+  shop_gold = 800;
 }
 
 local configDesc = {

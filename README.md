@@ -1,8 +1,8 @@
 ## Hades II Boss Rush
 
-Hades II mod adding a boss rush mode. Each biome starts at the final shop with 1000 gold and an infinite Travel Deal.
+Hades II mod adding a boss rush mode. Each biome starts at the final shop with 800 gold and an infinite Travel Deal.
 
-Only enabled in Dream Dives by default. Use the [Dream Dive Tweaks](https://old.thunderstore.io/c/hades-ii/p/zerp/DreamDiveTweaks/) mod to configure number/order of bosses.
+Only works in Dream Dives. Use the [Dream Dive Tweaks](https://old.thunderstore.io/c/hades-ii/p/zerp/DreamDiveTweaks/) mod to configure number/order of bosses.
 
 ## Installation
 
