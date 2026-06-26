@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- Fix Hermes deliveries not completing before final boss.
+- Adjust item cost in shops
+
 ## [0.1.0] - 2026-06-25
 
 - First version of the mod!

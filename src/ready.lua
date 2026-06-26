@@ -24,9 +24,9 @@ game.StoreData.BossRushWorldShop =
             Offers = 1,
             OptionsData =
             {
-                { Name = "RandomLoot", Weight = 5 },
+                { Name = "RandomLoot", Weight = 4 },
                 {
-                    Name = "WeaponUpgradeDrop", Weight = 2.5,
+                    Name = "WeaponUpgradeDrop", Weight = 2.5, ResourceCosts = { Money = 120 },
                     ReplaceRequirements =
                     {
                         {
@@ -39,7 +39,7 @@ game.StoreData.BossRushWorldShop =
                     },
                 },
                 {
-                    Name = "WeaponUpgradeDrop", Weight = 2.5,
+                    Name = "WeaponUpgradeDrop", Weight = 2.5, ResourceCosts = { Money = 120 },
                     ReplaceRequirements =
                     {
                         {
@@ -49,7 +49,7 @@ game.StoreData.BossRushWorldShop =
                     },
                 },
                 {
-                    Name = "WeaponUpgradeDrop", Weight = 2.5,
+                    Name = "WeaponUpgradeDrop", Weight = 2.5, ResourceCosts = { Money = 120 },
                     ReplaceRequirements =
                     {
                         {
@@ -64,7 +64,7 @@ game.StoreData.BossRushWorldShop =
                     },
                 },
                 {
-                    Name = "WeaponUpgradeDrop", Weight = 2.5,
+                    Name = "WeaponUpgradeDrop", Weight = 2.5, ResourceCosts = { Money = 120 },
                     ReplaceRequirements =
                     {
                         {
@@ -85,9 +85,9 @@ game.StoreData.BossRushWorldShop =
             Offers = 1,
             OptionsData =
             {
-                { Name = "MaxHealthDrop" },
+                { Name = "MaxHealthDrop", Cost = 100, Weighted = 1.2 },
                 { Name = "StackUpgrade", Cost = 100, ReplaceRequirements = { NamedRequirements = { "StackUpgradeLegal" }, } },
-                { Name = "ShopHermesUpgrade", },
+                { Name = "ShopHermesUpgrade", ResourceCosts = { Money = 100 }},
             },
         },
         {
@@ -95,7 +95,7 @@ game.StoreData.BossRushWorldShop =
             Offers = 1,
             OptionsData =
             {
-                { Name = "MaxManaDrop", },
+                { Name = "MaxManaDrop" },
                 {
                     Name = "SpellDrop",
                     Weight = 1.3,
@@ -122,7 +122,7 @@ game.StoreData.BossRushWorldShop =
                 },
                 {
                     Name = "TalentDrop",
-                    Weight = 0.7,
+                    Weight = 1,
                     ReplaceRequirements =
                     {
                         NamedRequirements = { "TalentLegal", },
@@ -172,6 +172,32 @@ for _, roomName in pairs(shopRoomMap) do
                     {
                         PathFalse = {"CurrentRun", "CurrentRoom", _PLUGIN.guid .. "BossRushMoneyAdded"}
                     }
+                }
+            })
+        end
+    end
+end
+
+function mod.CompleteSurfaceShopItems()
+    if game.CurrentRun.EnteredBiomes + 1 == game.GameData.FullRunBiomeCount then
+        game.CompleteSurfaceShopItems()
+    end
+end
+
+for _, roomName in pairs(shopRoomMap) do
+    local roomData = game.RoomData[roomName]
+    if roomData then
+        roomData.StartUnthreadedEvents = roomData.StartUnthreadedEvents or {}
+        local eventIndex = getEventIndex(roomData.StartUnthreadedEvents, _PLUGIN.guid .. "." .. "CompleteSurfaceShopItems")
+        if not eventIndex then
+            table.insert(roomData.StartUnthreadedEvents,
+            {
+                FunctionName = _PLUGIN.guid .. "." .. "CompleteSurfaceShopItems",
+                GameStateRequirements =
+                {
+                    {
+                        PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
+                    },
                 }
             })
         end
