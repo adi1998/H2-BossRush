@@ -4,7 +4,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "zerp"
 name = "BossRush"
-versionNumber = "0.1.0"
+versionNumber = "0.1.1"
 description = "Hades II mod adding a boss rush mode. Compatible with Zag's Journey bosses."
 websiteUrl = "https://github.com/adi1998/H2-BossRush"
 containsNsfwContent = false
