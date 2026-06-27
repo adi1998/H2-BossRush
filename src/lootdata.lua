@@ -56,6 +56,7 @@ mod.newLootData =
         IgnoreRestrictBoonChoices = true,
 		IgnoreTempRarityBonus = true,
 		BlockForceCommon = true,
+        ManualRecordUse = false,
         BlockDoubleBoon = true,
         LightingColor = { 255, 0, 0, 255 },
 		LootColor = { 242, 49, 46, 255 },
@@ -106,6 +107,7 @@ mod.newLootData =
 		BoonInfoTitleText = "Codex_BoonInfo_Echo",
 		LastRewardEligible = false,
 		IgnoreStackBoost = true,
+        ManualRecordUse = false,
         GameStateRequirements =
         {
             {
@@ -145,6 +147,7 @@ mod.newLootData =
 		UpgradeAcquiredAnimation = "MelinoeEquip",
         MenuTitle = "IcarusChoiceMenu_Title",
 		BoonInfoTitleText = "Codex_BoonInfo_Icarus",
+        ManualRecordUse = false,
 		FlavorTextIds =
 		{
 			"IcarusChoiceMenu_FlavorText01",
@@ -184,6 +187,7 @@ mod.newLootData =
 		UpgradeSelectedSound = "/SFX/Menu Sounds/KeepsakeNarcissusVial2",
 		MenuTitle = "NarcissusGiftsMenu_Title",
 		BoonInfoTitleText = "Codex_BoonInfo_Narcissus",
+        ManualRecordUse = false,
         GameStateRequirements =
         {
             {
@@ -223,6 +227,7 @@ mod.newLootData =
         AlwaysShowDefaultUseText = true,
         LoadPackages = { "Medea" },
 		SubtitleColor = game.Color.MedeaVoice,
+        ManualRecordUse = false,
         GameStateRequirements =
         {
             {
@@ -352,7 +357,7 @@ mod.newLootData =
         AlwaysShowDefaultUseText = true,
         UpgradeAcquiredAnimation = "MelinoeSalute",
 		UpgradeAcquiredAnimationDelay = 1.2,
-
+        ManualRecordUse = false,
 		UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA3",
 		UpgradeSelectedSound = "/SFX/Menu Sounds/KeepsakeCircePig2",
 		MenuTitle = "CirceChoiceMenu_Title",
@@ -394,6 +399,7 @@ mod.newLootData =
         GodLoot = false,
         AlwaysShowDefaultUseText = true,
         UpgradeAcquiredAnimation = "MelinoeSalute",
+        ManualRecordUse = false,
 		UpgradeAcquiredAnimationDelay = 1.2,
         LoadPackages = { "Arachne", },
         UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA3",
@@ -427,5 +433,23 @@ mod.newLootData =
         [_PLUGIN.guid .. "OnCloseFinishedFunctionName"] = "ArachneArmorApply"
     }
 }
+
+if mod.IsZag then
+    game.OverwriteTableKeys(mod.newLootData,{
+    SisyphusBossRush =
+    {
+
+    },
+    EurydiceBossRush =
+    {
+
+    },
+    PatroclesBossRush =
+    {
+
+    }
+}
+)
+end
 
 game.OverwriteTableKeys(game.LootData, mod.newLootData)

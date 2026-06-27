@@ -374,3 +374,74 @@ for _, choiceFunction in ipairs({
         end
     end)
 end
+
+local roomRewardRooms =
+{
+    "F_Boss01",
+    "F_Boss02",
+
+    "G_Boss01",
+    "G_Boss02",
+
+    "H_Boss01",
+    "H_Boss02",
+
+    "I_Boss01",
+
+    "N_Boss01",
+    "N_Boss02",
+
+    "O_Boss01",
+    "O_Boss02",
+
+    "P_Boss01",
+
+    "Q_Boss01",
+    "Q_Boss02",
+
+    "A_Boss01",
+    "A_Boss02",
+    "A_Boss03",
+
+    "X_Boss01",
+    "X_Boss02",
+
+    "Y_Boss01",
+
+    "D_Boss01",
+}
+
+function mod.SpawnNPCLoot(source, args)
+    if game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
+        local lootOptions = {}
+        for lootName, _ in pairs(mod.newLootData) do
+            if game.CurrentRun.UseRecord[lootName] or 0 <= 0 then
+                table.insert(lootOptions, lootName)
+            end
+        end
+        local chosenLootOption = game.GetRandomValue(lootOptions)
+        if chosenLootOption then
+            game.CreateLoot({ Name = chosenLootOption, OffsetX = 100, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true})
+        end
+    end
+end
+
+local wrappedFunc = {}
+
+for index, roomName in ipairs(roomRewardRooms) do
+    local roomData = game.RoomData[roomName]
+    if roomData then
+        if not roomData.OnRoomRewardSpawnedFunctionName then
+            roomData.OnRoomRewardSpawnedFunctionName = _PLUGIN.guid .. "." .. "SpawnNPCLoot"
+        else
+            local funcName = roomData.OnRoomRewardSpawnedFunctionName
+            if not wrappedFunc[funcName] then
+                modutil.mod.Path.Wrap(funcName, function (base, ...)
+                    mod.SpawnNPCLoot(...)
+                    return base(...)
+                end)
+                wrappedFunc[funcName] = true
+            end
+        end
+    end
+end
