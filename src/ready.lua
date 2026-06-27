@@ -213,7 +213,7 @@ if game.RoomData["D_Intro"] then
     local roomData = game.RoomData["D_Intro"]
     roomData.StartUnthreadedEvents = roomData.StartUnthreadedEvents or {}
     table.insert(roomData.StartUnthreadedEvents, {
-        FunctionName = "NikkelM-Zagreus_Journey" .. "." .. "SpawnConsumables",
+        FunctionName = ZJ_guid .. "." .. "SpawnConsumables",
         Args =
         {
             Spawns =
@@ -346,3 +346,31 @@ modutil.mod.Path.Wrap("RestockWorldItem", function (base, replacedIndex, kitId, 
     end
     -- print("RestockWorldItem after", dump(game.CurrentRun.CurrentRoom.Store.SpawnedStoreItems))
 end)
+
+for _, choiceFunction in ipairs({
+    "EchoChoice",
+    "IcarusBenefitChoice",
+    "NarcissusBenefitChoice",
+    "MedeaCurseChoice",
+    "CirceBlessingChoice",
+    "ArachneCostumeChoice",
+}) do
+    modutil.mod.Path.Wrap(choiceFunction, function (base, source, args, screen)
+        if source[_PLUGIN.guid .. "RemoveInputBlock"] then
+            screen = screen or {}
+            args = args or {}
+            if source[_PLUGIN.guid .. "OnCloseFinishedFunctionName"] then
+                args.OverwriteTableKeys =
+                {
+                    OnCloseFinishedFunctionName = source[_PLUGIN.guid .. "OnCloseFinishedFunctionName"]
+                }
+            end
+        end
+
+        base(source, args, screen)
+
+        if source[_PLUGIN.guid .. "RemoveInputBlock"] then
+            game.RemoveInputBlock({ Name = "PlayTextLines" })
+        end
+    end)
+end

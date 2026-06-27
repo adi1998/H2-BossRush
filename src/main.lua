@@ -55,18 +55,16 @@ function dump(o, depth)
 end
 
 DDT_guid = "zerp-DreamDiveTweaks"
+ZJ_guid = "NikkelM-Zagreus_Journey"
 
 local function on_ready()
     -- what to do when we are ready, but not re-do on reload.
     if config.enabled == false then return end
     mod = modutil.mod.Mod.Register(_PLUGIN.guid)
-    mod.config = config
-
-    mod.IsZagAvailable = rom.mods["NikkelM-Zagreus_Journey"] and
-                         rom.mods["NikkelM-Zagreus_Journey"].config and
-                         rom.mods["NikkelM-Zagreus_Journey"].config.enabled
-
+    import "lootdata.lua"
+    import "sjson.lua"
     import "ready.lua"
+    game.SetupRunData()
 end
 
 local function on_reload()
