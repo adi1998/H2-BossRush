@@ -85,8 +85,8 @@ game.StoreData.BossRushWorldShop =
             Offers = 1,
             OptionsData =
             {
-                { Name = "MaxHealthDrop", Cost = 100, Weighted = 1.2 },
-                { Name = "StackUpgrade", Cost = 100, ReplaceRequirements = { NamedRequirements = { "StackUpgradeLegal" }, } },
+                { Name = "MaxHealthDrop", Cost = 100, Weighted = 1.7 },
+                { Name = "StackUpgrade", Cost = 120, ReplaceRequirements = { NamedRequirements = { "StackUpgradeLegal" }, } },
                 { Name = "ShopHermesUpgrade", ResourceCosts = { Money = 100 }},
             },
         },
@@ -252,7 +252,10 @@ if game.RoomData["D_Hub"] then
             },
         }
     })
-    table.insert(roomData.StartUnthreadedEvents, {
+    roomData.DistanceTriggers = roomData.DistanceTriggers or {}
+    table.insert(roomData.DistanceTriggers, {
+        TriggerObjectType = "ModsNikkelMHadesBiomes_NPC_Cerberus_Field_01",
+        WithinDistance = 250,
         FunctionName = "ExitNPCPresentation",
         Args = {
             InitialWaitTime = 0.2,
@@ -268,7 +271,8 @@ if game.RoomData["D_Hub"] then
             MoveSound = "/Leftovers/SFX/BallImpact",
             HeroVoiceLines = "ClearedCerberusVoiceLines"
         },
-        GameStateRequirements = {
+        GameStateRequirements =
+        {
             {
                 PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
             },
@@ -347,14 +351,20 @@ modutil.mod.Path.Wrap("RestockWorldItem", function (base, replacedIndex, kitId, 
     -- print("RestockWorldItem after", dump(game.CurrentRun.CurrentRoom.Store.SpawnedStoreItems))
 end)
 
-for _, choiceFunction in ipairs({
+local benefitChoiceFunctions = {
     "EchoChoice",
     "IcarusBenefitChoice",
     "NarcissusBenefitChoice",
     "MedeaCurseChoice",
     "CirceBlessingChoice",
     "ArachneCostumeChoice",
-}) do
+}
+
+if mod.IsZag then
+    table.insert(benefitChoiceFunctions, ZJ_guid .. "." .. "ModsNikkelMHadesBiomesBenefitChoice")
+end
+
+for _, choiceFunction in ipairs(benefitChoiceFunctions) do
     modutil.mod.Path.Wrap(choiceFunction, function (base, source, args, screen)
         if source[_PLUGIN.guid .. "RemoveInputBlock"] then
             screen = screen or {}
@@ -412,16 +422,20 @@ local roomRewardRooms =
 }
 
 function mod.SpawnNPCLoot(source, args)
-    if game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
+    if game.CurrentRun[_PLUGIN.guid .. "BossRush"] and game.CurrentRun.EnteredBiomes < game.GameData.FullRunBiomeCount then
         local lootOptions = {}
         for lootName, _ in pairs(mod.newLootData) do
-            if game.CurrentRun.UseRecord[lootName] or 0 <= 0 then
+            if (game.CurrentRun.UseRecord[lootName] or 0) <= 0 then
                 table.insert(lootOptions, lootName)
             end
         end
-        local chosenLootOption = game.GetRandomValue(lootOptions)
+        local chosenLootOption = game.RemoveRandomValue(lootOptions)
         if chosenLootOption then
             game.CreateLoot({ Name = chosenLootOption, OffsetX = 100, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true})
+        end
+        chosenLootOption = game.RemoveRandomValue(lootOptions)
+        if chosenLootOption and game.CurrentRun.EnteredBiomes + 1 == game.GameData.FullRunBiomeCount then
+            game.CreateLoot({ Name = chosenLootOption, OffsetX = 150, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true})
         end
     end
 end
@@ -437,11 +451,56 @@ for index, roomName in ipairs(roomRewardRooms) do
             local funcName = roomData.OnRoomRewardSpawnedFunctionName
             if not wrappedFunc[funcName] then
                 modutil.mod.Path.Wrap(funcName, function (base, ...)
-                    mod.SpawnNPCLoot(...)
+                    mod.SpawnNPCLoot()
                     return base(...)
                 end)
                 wrappedFunc[funcName] = true
             end
         end
     end
+end
+
+modutil.mod.Path.Wrap("GiveRandomConsumables", function (base, args, trait, contextArgs)
+    if game.CurrentRun[_PLUGIN.guid .. "BossRush"] and (args.DestinationId == 591878 or args.DestinationId == 370001) then
+        args.DestinationId = game.CurrentRun.Hero.ObjectId
+        args.Force = 0
+        args.ForceToValidLocation = true
+    end
+    return base(args, trait, contextArgs)
+end)
+
+modutil.mod.Path.Wrap("EchoLastReward", function (base, args)
+    if game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
+        args.LootSourceId = nil
+    end
+    return base(args)
+end)
+
+if mod.IsZag then
+    modutil.mod.Path.Wrap(ZJ_guid .. "." .. "ModsNikkelMHadesBiomesSisyphusDropPresentation", function (base, ...)
+        if game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
+            return
+        end
+        return base(...)
+    end)
+
+    modutil.mod.Path.Wrap(ZJ_guid .. "." .. "ModsNikkelMHadesBiomesOrpheusBuff", function (base, ...)
+        if game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
+            game.ActiveEnemies[390000] =
+            {
+                OrpheusSingsAgainRequirements =
+                {
+                    {
+                        PathTrue = { "OrpheusSingsDuringBossRush" }
+                    }
+                }
+            }
+        end
+
+        base(...)
+
+        if game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
+            game.ActiveEnemies[390000] = nil
+        end
+    end)
 end

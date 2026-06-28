@@ -434,22 +434,146 @@ mod.newLootData =
     }
 }
 
-if mod.IsZag then
-    game.OverwriteTableKeys(mod.newLootData,{
+if mod.IsZag then game.OverwriteTableKeys(mod.newLootData, {
     SisyphusBossRush =
     {
-
+        InheritFrom = { "BaseLoot", "BaseSoundPackage" },
+        UsePromptOffsetX = 80,
+		UsePromptOffsetY = 48,
+        GodLoot = false,
+        AlwaysShowDefaultUseText = true,
+        UpgradeAcquiredAnimation = "MelinoeSalute",
+		UpgradeAcquiredAnimationDelay = 1.2,
+        ManualRecordUse = false,
+        UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
+		UpgradeSelectedSound = "/SFX/ArtemisBoonChoice",
+		MenuTitle = "NPC_SisyphusAndBouldy_01",
+        GameStateRequirements =
+        {
+            {
+                PathTrue = {"AllowBossRushLootInRuns"}
+            }
+        },
+		FlavorTextIds = {
+			"Sisyphus_OfferText01",
+		},
+        Traits = {
+			"ModsNikkelMHadesBiomesSisyphusHealing",
+			"ModsNikkelMHadesBiomesSisyphusCentaurSoul",
+			"ModsNikkelMHadesBiomesSisyphusMaxMana",
+			"ModsNikkelMHadesBiomesSisyphusMoney",
+			"ModsNikkelMHadesBiomesSisyphusMetapoints",
+			"ModsNikkelMHadesBiomesSisyphusPomSlices",
+			"ModsNikkelMHadesBiomesSisyphusTalentDrop",
+		},
+        OnUsedFunctionName = ZJ_guid .. "." .. "ModsNikkelMHadesBiomesBenefitChoice",
+        OnUsedFunctionArgs = _G[ZJ_guid].PresetEventArgs.SisyphusBenefitChoices,
+        [_PLUGIN.guid .. "RemoveInputBlock"] = true,
+        [_PLUGIN.guid .. "OnCloseFinishedFunctionName"] = ZJ_guid .. "." .. "ModsNikkelMHadesBiomesNPCPostChoicePresentation",
     },
     EurydiceBossRush =
     {
-
+        InheritFrom = { "BaseLoot", "BaseSoundPackage" },
+        UsePromptOffsetX = 80,
+		UsePromptOffsetY = 48,
+        GodLoot = false,
+        AlwaysShowDefaultUseText = true,
+        UpgradeAcquiredAnimation = "MelinoeSalute",
+		UpgradeAcquiredAnimationDelay = 1.2,
+        ManualRecordUse = false,
+        UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
+		UpgradeSelectedSound = "/Leftovers/Menu Sounds/TalismanPaperEquipLEGENDARY",
+		MenuTitle = "NPC_Eurydice_01",
+        GameStateRequirements =
+        {
+            {
+                PathTrue = {"AllowBossRushLootInRuns"}
+            }
+        },
+		FlavorTextIds = {
+			"Eurydice_OfferText01",
+		},
+        Traits = {
+			"ModsNikkelMHadesBiomesBuffSlottedBoonRarity",
+			"ModsNikkelMHadesBiomesBuffMegaPom",
+			"ModsNikkelMHadesBiomesBuffFutureBoonRarity",
+		},
+        OnUsedFunctionName = ZJ_guid .. "." .. "ModsNikkelMHadesBiomesBenefitChoice",
+        OnUsedFunctionArgs = _G[ZJ_guid].PresetEventArgs.EurydiceBenefitChoices,
+        [_PLUGIN.guid .. "RemoveInputBlock"] = true,
+        [_PLUGIN.guid .. "OnCloseFinishedFunctionName"] = ZJ_guid .. "." .. "ModsNikkelMHadesBiomesNPCPostChoicePresentation",
     },
-    PatroclesBossRush =
+    PatroclusBossRush =
     {
-
+        InheritFrom = { "BaseLoot", "BaseSoundPackage" },
+        UsePromptOffsetX = 80,
+		UsePromptOffsetY = 48,
+        GodLoot = false,
+        AlwaysShowDefaultUseText = true,
+        UpgradeAcquiredAnimation = "MelinoeSalute",
+		UpgradeAcquiredAnimationDelay = 1.2,
+        ManualRecordUse = false,
+		UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
+		UpgradeSelectedSound = "/SFX/ArtemisBoonChoice",
+		MenuTitle = "NPC_Patroclus_01",
+        GameStateRequirements =
+        {
+            {
+                PathTrue = {"AllowBossRushLootInRuns"}
+            }
+        },
+		FlavorTextIds = {
+			"Patroclus_OfferText03",
+		},
+        Traits = {
+			"ModsNikkelMHadesBiomesTemporaryDoorHealTrait_Patroclus",
+			"ModsNikkelMHadesBiomesTemporaryImprovedWeaponTrait_Patroclus",
+			"ModsNikkelMHadesBiomesBuffExtraChance",
+			"ModsNikkelMHadesBiomesGainMaxHealthMinMana",
+			"ModsNikkelMHadesBiomesGainMinHealthMaxMana",
+		},
+        OnUsedFunctionName = ZJ_guid .. "." .. "ModsNikkelMHadesBiomesBenefitChoice",
+        OnUsedFunctionArgs = _G[ZJ_guid].PresetEventArgs.PatroclusBenefitChoices,
+        [_PLUGIN.guid .. "RemoveInputBlock"] = true,
+        [_PLUGIN.guid .. "OnCloseFinishedFunctionName"] = ZJ_guid .. "." .. "ModsNikkelMHadesBiomesNPCPostChoicePresentation",
+    },
+    OrpheusBossRush =
+    {
+        InheritFrom = { "BaseLoot", "BaseSoundPackage" },
+        UsePromptOffsetX = 80,
+		UsePromptOffsetY = 48,
+        GodLoot = false,
+        AlwaysShowDefaultUseText = true,
+        UpgradeAcquiredAnimation = "MelinoeSalute",
+		UpgradeAcquiredAnimationDelay = 1.2,
+        ManualRecordUse = false,
+		UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
+		UpgradeSelectedSound = "/SFX/ArtemisBoonChoice",
+        MenuTitle = "NPC_Orpheus_01",
+        GameStateRequirements =
+        {
+            {
+                PathTrue = {"AllowBossRushLootInRuns"}
+            }
+        },
+		FlavorTextIds = {
+			"Orpheus_OfferText01",
+		},
+        Traits = {
+			"ModsNikkelMHadesBiomesOrpheusChaosThemeBoon",
+			"ModsNikkelMHadesBiomesOrpheusBossFightMusicBoon",
+			"ModsNikkelMHadesBiomesOrpheusCharonShopThemeBoon",
+			-- Priority Traits
+			"ModsNikkelMHadesBiomesOrpheusOrpheusSong1Boon",
+			"ModsNikkelMHadesBiomesOrpheusOrpheusSong2Boon",
+			"ModsNikkelMHadesBiomesOrpheusEurydiceSong1Boon",
+		},
+        OnUsedFunctionName = ZJ_guid .. "." .. "ModsNikkelMHadesBiomesBenefitChoice",
+        OnUsedFunctionArgs = _G[ZJ_guid].PresetEventArgs.OrpheusBenefitChoices,
+        [_PLUGIN.guid .. "RemoveInputBlock"] = true,
+        [_PLUGIN.guid .. "OnCloseFinishedFunctionName"] = ZJ_guid .. "." .. "ModsNikkelMHadesBiomesNPCPostChoicePresentation",
     }
-}
-)
+})
 end
 
 game.OverwriteTableKeys(game.LootData, mod.newLootData)

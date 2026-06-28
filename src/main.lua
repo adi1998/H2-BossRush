@@ -61,6 +61,9 @@ local function on_ready()
     -- what to do when we are ready, but not re-do on reload.
     if config.enabled == false then return end
     mod = modutil.mod.Mod.Register(_PLUGIN.guid)
+    mod.IsZag = rom.mods["NikkelM-Zagreus_Journey"] and
+                rom.mods["NikkelM-Zagreus_Journey"].config and
+                rom.mods["NikkelM-Zagreus_Journey"].config.enabled
     import "lootdata.lua"
     import "sjson.lua"
     import "ready.lua"
@@ -71,6 +74,8 @@ local function on_reload()
     -- what to do when we are ready, but also again on every reload.
     -- only do things that are safe to run over and over.
     if config.enabled == false then return end
+    -- game.CreateLoot({ Name = "EurydiceBossRush", OffsetX = 100, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true}) 
+    mod.SpawnNPCLoot()
 end
 
 local function on_ready_late()
