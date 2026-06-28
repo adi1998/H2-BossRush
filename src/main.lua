@@ -74,8 +74,7 @@ local function on_reload()
     -- what to do when we are ready, but also again on every reload.
     -- only do things that are safe to run over and over.
     if config.enabled == false then return end
-    -- game.CreateLoot({ Name = "EurydiceBossRush", OffsetX = 100, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true}) 
-    mod.SpawnNPCLoot()
+    -- game.CreateLoot({ Name = "EurydiceBossRush", OffsetX = 100, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true})
 end
 
 local function on_ready_late()
