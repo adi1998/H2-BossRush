@@ -20,7 +20,7 @@ Pool 3
 - Selene
 - Path of Stars
 
-Each boss drops a random NPC loot. The penultimate boss drops two such loot items.
+NEW: Each boss drops a random NPC loot. The penultimate boss drops two such loot items.
 
 ## Installation
 

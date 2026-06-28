@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- Bosses drop random NPC loot.
+- Minor adjustments to shop costs.
+
 ## [0.1.1] - 2026-06-26
 
 - Fix Hermes deliveries not completing before final boss.
