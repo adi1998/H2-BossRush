@@ -454,6 +454,7 @@ if mod.IsZag then game.OverwriteTableKeys(mod.newLootData, {
                 PathTrue = {"AllowBossRushLootInRuns"}
             }
         },
+        BoonInfoTitleText = "Codex_BoonInfo_Narcissus",
 		FlavorTextIds = {
 			"Sisyphus_OfferText01",
 		},
@@ -484,6 +485,7 @@ if mod.IsZag then game.OverwriteTableKeys(mod.newLootData, {
         UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
 		UpgradeSelectedSound = "/Leftovers/Menu Sounds/TalismanPaperEquipLEGENDARY",
 		MenuTitle = "NPC_Eurydice_01",
+        BoonInfoTitleText = "Codex_BoonInfo_Echo",
         GameStateRequirements =
         {
             {
@@ -516,6 +518,7 @@ if mod.IsZag then game.OverwriteTableKeys(mod.newLootData, {
 		UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
 		UpgradeSelectedSound = "/SFX/ArtemisBoonChoice",
 		MenuTitle = "NPC_Patroclus_01",
+        BoonInfoTitleText = "Codex_BoonInfo_Narcissus",
         GameStateRequirements =
         {
             {
@@ -550,6 +553,7 @@ if mod.IsZag then game.OverwriteTableKeys(mod.newLootData, {
 		UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
 		UpgradeSelectedSound = "/SFX/ArtemisBoonChoice",
         MenuTitle = "NPC_Orpheus_01",
+        BoonInfoTitleText = "ModsNikkelMHadesBiomes_Codex_BoonInfo_Orpheus",
         GameStateRequirements =
         {
             {

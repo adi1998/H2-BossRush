@@ -476,6 +476,13 @@ modutil.mod.Path.Wrap("EchoLastReward", function (base, args)
     return base(args)
 end)
 
+modutil.mod.Path.Wrap("AttemptOpenUpgradeChoiceBoonInfo", function (base, screen, button)
+    if mod.newLootData[screen.Source.Name] then
+        return
+    end
+    return base(screen, button)
+end)
+
 if mod.IsZag then
     modutil.mod.Path.Wrap(ZJ_guid .. "." .. "ModsNikkelMHadesBiomesSisyphusDropPresentation", function (base, ...)
         if game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
