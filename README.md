@@ -20,6 +20,8 @@ Pool 3
 - Selene
 - Path of Stars
 
+Each boss drops a random NPC loot. The penultimate boss drops two such loot items.
+
 ## Installation
 
 Use r2modman by ebkr from [Thunderstore](https://thunderstore.io/package/ebkr/r2modman/) or [GitHub](https://github.com/ebkr/r2modmanPlus/releases/latest).
