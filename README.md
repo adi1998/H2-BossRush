@@ -1,8 +1,8 @@
 ## Hades II Boss Rush
 
-Hades II mod adding a boss rush mode. Compatible with Zag's Journey bosses. Each biome starts at the final shop with +800 gold (can be configured using the r2modman config editor) and an infinite Travel Deal.
+Hades II mod turning Dream Dives into a boss rush. Compatible with Zag's Journey bosses. Each biome starts at the final shop with +800 gold (can be configured using the r2modman config editor) and an infinite Travel Deal.
 
-Only works in Dream Dives. Use the [Dream Dive Tweaks](https://old.thunderstore.io/c/hades-ii/p/zerp/DreamDiveTweaks/) mod's custom order option to configure the number/order of bosses.
+Use the [Dream Dive Tweaks](https://old.thunderstore.io/c/hades-ii/p/zerp/DreamDiveTweaks/) mod to configure the number/order of bosses.
 
 The non-final shops have been altered to have these reward pools. Final shop reward pools have been left unaltered. The usual restrictions for Hammers, Hermes and Selene still apply.
 
@@ -20,7 +20,7 @@ Pool 3
 - Selene
 - Path of Stars
 
-NEW: Each boss drops a random NPC loot. The penultimate boss drops two such loot items.
+NEW: Each boss drops a random NPC loot (Echo, Artemis, etc.). The penultimate boss drops two of these loot items.
 
 ## Installation
 
