@@ -142,7 +142,9 @@ game.StoreData.BossRushWorldShop =
 }
 
 function mod.AddBossRushMoney()
-    game.AddResource( "Money", config.shop_gold, _PLUGIN.guid .. "BossRush" )
+    local money = config.shop_gold * (game.GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } ))
+    money = game.round(money)
+    game.AddResource( "Money", money, _PLUGIN.guid .. "BossRush" )
     game.CurrentRun.CurrentRoom[_PLUGIN.guid .. "BossRushMoneyAdded"] = true
 end
 

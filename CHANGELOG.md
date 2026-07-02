@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Make Travel Deal unsellable
+- Money buffs now affect gold added at shop start
 
 ## [0.2.0] - 2026-06-29
 
