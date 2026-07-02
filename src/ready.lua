@@ -311,6 +311,15 @@ modutil.mod.Path.Wrap("StartNewRun", function (base, ...)
     return currentRun
 end)
 
+modutil.mod.Path.Wrap("GenerateSellTraitValues", function (base, currentRoom, args)
+    if game.CurrentRun and game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
+        args = args or {}
+        args.ExclusionNames = args.ExclusionNames or {}
+        table.insert(args.ExclusionNames, "RestockBoon")
+    end
+    return base(currentRoom, args)
+end)
+
 modutil.mod.Path.Wrap("RemoveStoreItem", function (base, args)
     -- print("RemoveStoreItem", dump(game.CurrentRun.CurrentRoom.Store.StoreOptions))
     if not (game.CurrentRun == nil or game.CurrentRun.CurrentRoom == nil or game.CurrentRun.CurrentRoom.Store == nil) and game.CurrentRun[_PLUGIN.guid .. "BossRush"] then

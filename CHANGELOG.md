@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Make Travel Deal unsellable
+
 ## [0.2.0] - 2026-06-29
 
 - Bosses drop random NPC loot.
