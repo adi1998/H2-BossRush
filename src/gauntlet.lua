@@ -208,7 +208,7 @@ modutil.mod.Path.Wrap("StartRoomMusic", function (base, currentRun, currentRoom)
     if currentRun[_PLUGIN.guid .. "GauntletStarted"] and not string.match(currentRoom.Name, "Dream_PostBoss") then
         local roomData = game.RoomData[currentRoom.Name] or currentRoom
         roomData.PlayBiomeMusic = true
-        revertPlsyBiomeMusicMap[roomData.Name] = true
+        revertPlayBiomeMusicMap[roomData.Name] = true
     end
     return base(currentRun, currentRoom)
 end)
