@@ -10,6 +10,7 @@ local config = {
 }
 
 local configDesc = {
+  enabled = "Enable/disable boss rush";
   shop_gold = "The amount gold given to the player in each shop";
   gauntlet_mode =
   {

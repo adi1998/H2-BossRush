@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- Add a new "gauntlet mode" which puts the boss rush at the end of a Dream Dive.
+- Increased chance of Selene and Path of Stars in regular boss rush.
+
 ## [0.2.1] - 2026-07-02
 
 - Make Travel Deal unsellable
