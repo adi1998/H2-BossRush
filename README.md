@@ -30,7 +30,7 @@ Each boss drops a random NPC loot (Echo, Artemis, etc.). The penultimate boss dr
 
 ## NEW: Final Gauntlet mode
 
-Puts a boss rush at the end of the Dream Dive. Vow of Rivals will be forced off during the Dream Dive and will forced on during the gauntlet.
+Puts a boss rush at the end of the Dream Dive. Vow of Rivals will be forced off during the Dream Dive and will be forced on during the gauntlet.
 
 ## Installation
 
