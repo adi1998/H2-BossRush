@@ -189,10 +189,10 @@ modutil.mod.Path.Wrap("EnterNextDreamBiome", function (base, source, args)
     return base(source, args)
 end)
 
-local revertPlsyBiomeMusicMap = {}
+local revertPlayBiomeMusicMap = {}
 
 modutil.mod.Path.Wrap("KillHero", function (base, ...)
-    for roomName, _ in pairs(revertPlsyBiomeMusicMap) do
+    for roomName, _ in pairs(revertPlayBiomeMusicMap) do
         local roomData = game.RoomData[roomName]
         if roomData then
             roomData.PlayBiomeMusic = nil
@@ -200,7 +200,7 @@ modutil.mod.Path.Wrap("KillHero", function (base, ...)
             print("Unable to revert PlayBiomeMusic flag for", roomName)
         end
     end
-    revertPlsyBiomeMusicMap = {}
+    revertPlayBiomeMusicMap = {}
     return base(...)
 end)
 
