@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-05
+
 - Add a new "gauntlet mode" which puts the boss rush at the end of a Dream Dive.
 - Increased chance of Selene and Path of Stars in regular boss rush.
 
@@ -24,7 +26,8 @@
 
 - First version of the mod!
 
-[unreleased]: https://github.com/adi1998/H2-BossRush/compare/0.2.1...HEAD
+[unreleased]: https://github.com/adi1998/H2-BossRush/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/adi1998/H2-BossRush/compare/0.2.1...0.3.0
 [0.2.1]: https://github.com/adi1998/H2-BossRush/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/adi1998/H2-BossRush/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/adi1998/H2-BossRush/compare/0.1.0...0.1.1
