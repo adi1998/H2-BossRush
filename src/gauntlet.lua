@@ -67,6 +67,9 @@ end)
 
 function mod.SelectNextBossRoom()
     local bossBiome = game.CurrentRun[_PLUGIN.guid .. "GauntletBossList"][game.CurrentRun[_PLUGIN.guid .. "NextGauntletBossIndex"]]
+
+    bossBiome = "P"
+
     local encounterMapData = game.BossDifficultyShrineEncounterBiomeMap[bossBiome]
     local skipRivals = not game.GameState.EncountersCompletedCache[encounterMapData.Encounter]
     if encounterMapData.OnlyRequireSeen then
@@ -83,7 +86,7 @@ function mod.ExitToBoss()
     {
         RoomOverrides =
         {
-            ForcedEntranceFunctionName = "RoomEntranceDreamBiomeStart",
+            PlayBiomeMusic = true,
         },
     }
     local nextRoom = game.CreateRoom( game.RoomData[nextRoomName], roomArgs )
@@ -147,7 +150,7 @@ modutil.mod.Path.Wrap("EnterNextDreamBiome", function (base, source, args)
 	    {
             RoomOverrides =
             {
-                ForcedEntranceFunctionName = "RoomEntranceDreamBiomeStart",
+                PlayBiomeMusic = true,
             },
         }
 
@@ -159,3 +162,44 @@ modutil.mod.Path.Wrap("EnterNextDreamBiome", function (base, source, args)
     end
     return base(source, args)
 end)
+
+local revertPlsyBiomeMusicMap = {}
+
+modutil.mod.Path.Wrap("KillHero", function (base, ...)
+    for roomName, _ in pairs(revertPlsyBiomeMusicMap) do
+        game.RoomData[roomName].PlayBiomeMusic = nil
+    end
+    revertPlsyBiomeMusicMap = {}
+    return base(...)
+end)
+
+modutil.mod.Path.Wrap("StartRoomMusic", function (base, currentRun, currentRoom)
+    if currentRun[_PLUGIN.guid .. "GauntletStarted"] and not string.match(currentRoom.Name, "Dream_PostBoss") then
+        local roomData = game.RoomData[currentRoom.Name] or currentRoom
+        roomData.PlayBiomeMusic = true
+        revertPlsyBiomeMusicMap[roomData.Name] = true
+    end
+    return base(currentRun, currentRoom)
+end)
+
+modutil.mod.Path.Wrap("UpdateRunHistoryCache", function (base, ...)
+    base(...)
+    if game.CurrentRun and game.CurrentRun[_PLUGIN.guid .. "GauntletStarted"] then
+        game.CurrentRun.BiomeDepthCache = 10
+    end
+end)
+
+for _, track in ipairs(game.MusicTrackData.P) do
+    track.GameStateRequirements =
+    {
+        OrRequirements =
+        {
+            track.GameStateRequirements,
+            {
+                {
+                    PathTrue = {"CurrentRun", _PLUGIN.guid .. "GauntletStarted"}
+                }
+            }
+        }
+    }
+end
