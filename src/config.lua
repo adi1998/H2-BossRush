@@ -10,7 +10,7 @@ local config = {
 }
 
 local configDesc = {
-  shop_gold = "The amount gold give tot he player in each shop";
+  shop_gold = "The amount gold given to the player in each shop";
   gauntlet_mode =
   {
     enabled = "Puts the boss rush at the end of the Dream Dive";

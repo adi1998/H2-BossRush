@@ -98,7 +98,7 @@ game.StoreData.BossRushWorldShop =
                 { Name = "MaxManaDrop" },
                 {
                     Name = "SpellDrop",
-                    Weight = 1.3,
+                    Weight = 1.5,
                     ReplaceRequirements =
                     {
                         {
@@ -122,7 +122,7 @@ game.StoreData.BossRushWorldShop =
                 },
                 {
                     Name = "TalentDrop",
-                    Weight = 1,
+                    Weight = 1.3,
                     ReplaceRequirements =
                     {
                         NamedRequirements = { "TalentLegal", },
