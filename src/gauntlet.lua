@@ -236,3 +236,32 @@ modutil.mod.Path.Wrap("OpenRunClearScreen", function (base)
     end
     return base()
 end)
+
+local shopRoomList = {
+    "Dream_PostBoss01",
+    "Dream_PostBoss02",
+    "Dream_PostBoss03",
+}
+
+for _, roomName in ipairs(shopRoomList) do
+    local roomData = game.RoomData[roomName]
+    roomData.SurfaceShopRequirements = roomData.SurfaceShopRequirements or {}
+    roomData.WellShopRequirements = roomData.WellShopRequirements or {}
+
+    table.insert(roomData.WellShopRequirements, {
+        PathFalse = {"CurrentRun", _PLUGIN.guid .. "GauntletStarted"}
+    })
+    table.insert(roomData.SurfaceShopRequirements, {
+        PathFalse = {"CurrentRun", _PLUGIN.guid .. "GauntletStarted"}
+    })
+
+    local obstacleData = roomData.ObstacleData
+    for _, obstacle in pairs(obstacleData) do
+        if obstacle.Template == "GiftRack" then
+            obstacle.SetupGameStateRequirements = obstacle.SetupGameStateRequirements or {}
+            table.insert(obstacle.SetupGameStateRequirements, {
+                PathFalse = {"CurrentRun", _PLUGIN.guid .. "GauntletStarted"}
+            })
+        end
+    end
+end
