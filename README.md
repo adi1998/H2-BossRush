@@ -20,7 +20,11 @@ Pool 3
 - Selene
 - Path of Stars
 
-NEW: Each boss drops a random NPC loot (Echo, Artemis, etc.). The penultimate boss drops two of these loot items.
+Each boss drops a random NPC loot (Echo, Artemis, etc.). The penultimate boss drops two of these loot items.
+
+## NEW: Final Gauntlet mode
+
+Puts a boss rush at the end of the Dream Dive. Vow of Rivals will be forced off during the Dream Dive and will forced on during the gauntlet.
 
 ## Installation
 

@@ -306,9 +306,12 @@ end)
 
 modutil.mod.Path.Wrap("StartNewRun", function (base, ...)
     local currentRun = base(...)
-    if currentRun.IsDreamRun then
+    if currentRun.IsDreamRun and not config.gauntlet_mode then
         currentRun[_PLUGIN.guid .. "BossRush"] = true
         game.AddTrait( currentRun.Hero, "RestockBoon", "Common")
+    end
+    if currentRun.IsDreamRun and config.gauntlet_mode then
+        currentRun[_PLUGIN.guid .. "BossRushGauntlet"] = true
     end
     return currentRun
 end)

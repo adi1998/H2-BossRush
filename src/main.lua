@@ -64,11 +64,12 @@ local function on_ready()
     mod.IsZag = rom.mods[ZJ_guid] and
                 rom.mods[ZJ_guid].config and
                 rom.mods[ZJ_guid].config.enabled and
-                rom.mods["NikkelM-Zagreus_Journey"].IsValidInstallation
+                rom.mods[ZJ_guid].IsValidInstallation
 
     import "lootdata.lua"
     import "sjson.lua"
     import "ready.lua"
+    import "gauntlet.lua"
     game.SetupRunData()
 end
 
