@@ -10,7 +10,7 @@ Use the [Dream Dive Tweaks](https://old.thunderstore.io/c/hades-ii/p/zerp/DreamD
 
 Each biome starts at the final shop with +800 gold and an infinite Travel Deal.
 
-The non-final shops have been altered to have these reward pools. Final shop reward pools have been left unaltered. The usual restrictions for Hammers, Hermes and Selene still apply.
+The non-final shops have been altered to have these reward pools. Chronos/Typhon shop reward pools have been left unaltered. The usual restrictions for Hammers, Hermes and Selene still apply.
 
 Pool 1
 - Health
