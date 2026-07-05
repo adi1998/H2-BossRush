@@ -193,7 +193,12 @@ local revertPlsyBiomeMusicMap = {}
 
 modutil.mod.Path.Wrap("KillHero", function (base, ...)
     for roomName, _ in pairs(revertPlsyBiomeMusicMap) do
-        game.RoomData[roomName].PlayBiomeMusic = nil
+        local roomData = game.RoomData[roomName]
+        if roomData then
+            roomData.PlayBiomeMusic = nil
+        else
+            print("Unable to revert PlayBiomeMusic flag for", roomName)
+        end
     end
     revertPlsyBiomeMusicMap = {}
     return base(...)
