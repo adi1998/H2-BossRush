@@ -39,6 +39,26 @@ local biomeRoomMap =
     {
         RoomName = "Q_Boss01",
         RivalsRoomName = "Q_Boss02",
+    },
+    Tartarus =
+    {
+        RoomNames = {"A_Boss01", "A_Boss02", "A_Boss03"},
+        RivalsRoomNames = {"A_Boss01", "A_Boss02", "A_Boss03"},
+    },
+    Asphodel =
+    {
+        RoomName = "X_Boss01",
+        RivalsRoomName = "X_Boss02",
+    },
+    Elysium =
+    {
+        RoomName = "Y_Boss01",
+        RivalsRoomName = "Y_Boss01",
+    },
+    Styx =
+    {
+        RoomName = "D_Boss01",
+        RivalsRoomName = "D_Boss01",
     }
 }
 
@@ -67,15 +87,21 @@ end)
 
 function mod.SelectNextBossRoom()
     local bossBiome = game.CurrentRun[_PLUGIN.guid .. "GauntletBossList"][game.CurrentRun[_PLUGIN.guid .. "NextGauntletBossIndex"]]
-
-    bossBiome = "P"
-
+    if game.Contains({"Tartarus", "Asphodel", "Elysium", "Styx"}, bossBiome) then
+        game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = true
+    else
+        game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun = false
+    end
     local encounterMapData = game.BossDifficultyShrineEncounterBiomeMap[bossBiome]
     local skipRivals = not game.GameState.EncountersCompletedCache[encounterMapData.Encounter]
     if encounterMapData.OnlyRequireSeen then
         skipRivals = not game.GameState.EncountersOccurredCache[encounterMapData.Encounter]
     end
     local bossRoomName = biomeRoomMap[bossBiome][(skipRivals and "RoomName") or "RivalsRoomName"]
+    if not bossRoomName then
+        local bossRoomNames = biomeRoomMap[bossBiome][(skipRivals and "RoomNames") or "RivalsRoomNames"]
+        bossRoomName = game.GetRandomValue(bossRoomNames)
+    end
     return bossRoomName
 end
 
@@ -203,3 +229,10 @@ for _, track in ipairs(game.MusicTrackData.P) do
         }
     }
 end
+
+modutil.mod.Path.Wrap("OpenRunClearScreen", function (base)
+    if ( game.CurrentRun[_PLUGIN.guid .. "GauntletStarted"] and game.CurrentRun[_PLUGIN.guid .. "NextGauntletBossIndex"] < game.CurrentRun.EnteredBiomes ) then
+        return
+    end
+    return base()
+end)

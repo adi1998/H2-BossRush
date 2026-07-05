@@ -4,7 +4,7 @@ local config = {
   gauntlet_mode =
   {
     enabled = false;
-    rest_frequency = 2;
+    rest_frequency = 3;
     starting_rest_spot = true;
   }
 }
