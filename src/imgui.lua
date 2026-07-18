@@ -9,6 +9,17 @@ function DrawBossRushConfig()
         config.enabled = value
     end
 
+    if not config.gauntlet_mode.enabled then
+        rom.ImGui.Text("    "); rom.ImGui.SameLine()
+        rom.ImGui.Text("The amount gold given in each shop")
+        rom.ImGui.Text("    "); rom.ImGui.SameLine()
+        value, selected = rom.ImGui.SliderInt("###shopgold", config.shop_gold, 600, 1200, '%d%')
+        if selected and value ~= previousConfig.shop_gold then
+            config.shop_gold = value
+            previousConfig.shop_gold = value
+        end
+    end
+
     value, checked = rom.ImGui.Checkbox("Enable gauntlet mode. Puts boss rush at end of run", config.gauntlet_mode.enabled)
     if checked then
         config.gauntlet_mode.enabled = value

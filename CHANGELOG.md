@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- Fix boss rush always starting in Gauntlet Mode
+- Add shop gold to imgui config
+
 ## [0.3.0] - 2026-07-05
 
 - Add a new "gauntlet mode" which puts the boss rush at the end of a Dream Dive.
