@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Block endless run when Gauntlet mode is on.
+
 ## [0.3.1] - 2026-07-18
 
 - Fix boss rush always starting in Gauntlet Mode

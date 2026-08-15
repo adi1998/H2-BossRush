@@ -142,7 +142,7 @@ game.StoreData.BossRushWorldShop =
 }
 
 function mod.AddBossRushMoney()
-    local money = config.shop_gold * (game.GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } ))
+    local money = config.shop_gold * game.GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } )
     money = game.round(money)
     game.AddResource( "Money", money, _PLUGIN.guid .. "BossRush" )
     game.CurrentRun.CurrentRoom[_PLUGIN.guid .. "BossRushMoneyAdded"] = true
@@ -500,6 +500,7 @@ modutil.mod.Path.Wrap("AttemptOpenUpgradeChoiceBoonInfo", function (base, screen
 end)
 
 if mod.IsZag then
+    -- TODO: remove for ZJ 2.0.0
     modutil.mod.Path.Wrap(ZJ_guid .. "." .. "ModsNikkelMHadesBiomesSisyphusDropPresentation", function (base, ...)
         if game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
             return
@@ -507,6 +508,7 @@ if mod.IsZag then
         return base(...)
     end)
 
+    -- TODO: remove for ZJ 2.0.0
     modutil.mod.Path.Wrap(ZJ_guid .. "." .. "ModsNikkelMHadesBiomesOrpheusBuff", function (base, ...)
         if game.CurrentRun[_PLUGIN.guid .. "BossRush"] then
             game.ActiveEnemies[390000] =
@@ -526,4 +528,11 @@ if mod.IsZag then
             game.ActiveEnemies[390000] = nil
         end
     end)
+end
+
+if game.ScreenData.RunClear.ComponentData[DDT_guid .. "EndlessButton"] then
+    table.insert(game.ScreenData.RunClear.ComponentData[DDT_guid .. "EndlessButton"].Requirements,
+    {
+        PathFalse = {"CurrentRun", _PLUGIN.guid .. "BossRushGauntlet"}
+    })
 end
