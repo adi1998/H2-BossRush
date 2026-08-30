@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.3] - 2026-08-30
+
 - Fix Path of Stars not being offered after the first time.
 
 ## [0.3.2] - 2026-08-16
@@ -37,7 +39,8 @@
 
 - First version of the mod!
 
-[unreleased]: https://github.com/adi1998/H2-BossRush/compare/0.3.2...HEAD
+[unreleased]: https://github.com/adi1998/H2-BossRush/compare/0.3.3...HEAD
+[0.3.3]: https://github.com/adi1998/H2-BossRush/compare/0.3.2...0.3.3
 [0.3.2]: https://github.com/adi1998/H2-BossRush/compare/0.3.1...0.3.2
 [0.3.1]: https://github.com/adi1998/H2-BossRush/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/adi1998/H2-BossRush/compare/0.2.1...0.3.0
