@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Fix Path of Stars not being offered after the first time.
+
 ## [0.3.2] - 2026-08-16
 
 - Block endless run when Gauntlet mode is on.

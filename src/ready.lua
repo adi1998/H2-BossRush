@@ -127,12 +127,9 @@ game.StoreData.BossRushWorldShop =
                     {
                         NamedRequirements = { "TalentLegal", },
                         {
-                            Path = { "CurrentRun", "EnteredBiomes" },
-                            Comparison = ">",
-                            Value = 1,
-                        },
-                        {
-                            PathFalse = { "CurrentRun", "BiomeUseRecord", "TalentDrop" },
+                            Path = { "CurrentRun", "BiomeUseRecord", "TalentDrop" },
+                            Comparison = "<=",
+                            Value = 1
                         },
                     },
                 },
@@ -156,27 +153,38 @@ local function getEventIndex(events, functionName)
     end
 end
 
+local function addEventCheckDupes(eventArray, event)
+    local eventIndex = getEventIndex(eventArray, event.FunctionName)
+    if not eventIndex then
+        table.insert(eventArray, event)
+    end
+end
+
 for _, roomName in pairs(shopRoomMap) do
     local roomData = game.RoomData[roomName]
     if roomData then
         roomData.StartUnthreadedEvents = roomData.StartUnthreadedEvents or {}
-        local eventIndex = getEventIndex(roomData.StartUnthreadedEvents, _PLUGIN.guid .. "." .. "AddBossRushMoney")
-        if not eventIndex then
-            print("Adding money event for", roomData.Name)
-            table.insert(roomData.StartUnthreadedEvents,
+        addEventCheckDupes(roomData.StartUnthreadedEvents, {
+            FunctionName = _PLUGIN.guid .. "." .. "AddBossRushMoney",
+            GameStateRequirements =
             {
-                FunctionName = _PLUGIN.guid .. "." .. "AddBossRushMoney",
-                GameStateRequirements =
                 {
-                    {
-                        PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
-                    },
-                    {
-                        PathFalse = {"CurrentRun", "CurrentRoom", _PLUGIN.guid .. "BossRushMoneyAdded"}
-                    }
+                    PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
+                },
+                {
+                    PathFalse = {"CurrentRun", "CurrentRoom", _PLUGIN.guid .. "BossRushMoneyAdded"}
                 }
-            })
-        end
+            }
+        })
+        addEventCheckDupes(roomData.StartUnthreadedEvents, {
+            FunctionName = "EndBiomeRecords",
+            GameStateRequirements =
+            {
+                {
+                    PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
+                },
+            }
+        })
     end
 end
 
@@ -190,19 +198,16 @@ for _, roomName in pairs(shopRoomMap) do
     local roomData = game.RoomData[roomName]
     if roomData then
         roomData.StartUnthreadedEvents = roomData.StartUnthreadedEvents or {}
-        local eventIndex = getEventIndex(roomData.StartUnthreadedEvents, _PLUGIN.guid .. "." .. "CompleteSurfaceShopItems")
-        if not eventIndex then
-            table.insert(roomData.StartUnthreadedEvents,
+        addEventCheckDupes(roomData.StartUnthreadedEvents,
+        {
+            FunctionName = _PLUGIN.guid .. "." .. "CompleteSurfaceShopItems",
+            GameStateRequirements =
             {
-                FunctionName = _PLUGIN.guid .. "." .. "CompleteSurfaceShopItems",
-                GameStateRequirements =
                 {
-                    {
-                        PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
-                    },
-                }
-            })
-        end
+                    PathTrue = {"CurrentRun" , _PLUGIN.guid .. "BossRush"}
+                },
+            }
+        })
     end
 end
 
@@ -214,7 +219,7 @@ end
 if game.RoomData["D_Intro"] then
     local roomData = game.RoomData["D_Intro"]
     roomData.StartUnthreadedEvents = roomData.StartUnthreadedEvents or {}
-    table.insert(roomData.StartUnthreadedEvents, {
+    addEventCheckDupes(roomData.StartUnthreadedEvents, {
         FunctionName = ZJ_guid .. "." .. "SpawnConsumables",
         Args =
         {
@@ -232,7 +237,7 @@ if game.RoomData["D_Intro"] then
             },
         }
     })
-    table.insert(roomData.StartUnthreadedEvents, {
+    addEventCheckDupes(roomData.StartUnthreadedEvents, {
         FunctionName = _PLUGIN.guid .. "." .. "SetupFountainVisited",
         GameStateRequirements = {
             {
@@ -245,7 +250,7 @@ end
 if game.RoomData["D_Hub"] then
     local roomData = game.RoomData["D_Hub"]
     roomData.StartUnthreadedEvents = roomData.StartUnthreadedEvents or {}
-    table.insert(roomData.StartUnthreadedEvents, {
+    addEventCheckDupes(roomData.StartUnthreadedEvents, {
         FunctionName = "UnlockDoor",
         Args = { DoorId = 547460, RelockAllDoors = true, },
         GameStateRequirements = {
@@ -451,7 +456,7 @@ function mod.SpawnNPCLoot(source, args)
         end
         chosenLootOption = game.RemoveRandomValue(lootOptions)
         if chosenLootOption and game.CurrentRun.EnteredBiomes + 1 == game.GameData.FullRunBiomeCount then
-            game.CreateLoot({ Name = chosenLootOption, OffsetX = 150, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true})
+            game.CreateLoot({ Name = chosenLootOption, OffsetX = -100, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true})
         end
     end
 end
