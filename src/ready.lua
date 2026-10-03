@@ -452,11 +452,15 @@ function mod.SpawnNPCLoot(source, args)
         end
         local chosenLootOption = game.RemoveRandomValue(lootOptions)
         if chosenLootOption then
-            game.CreateLoot({ Name = chosenLootOption, OffsetX = 100, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true})
+            local spawnPoint = game.GetClosest({ Id = game.CurrentRun.Hero.ObjectId, DestinationNames = "SpawnPoints", Distance = 600, RequiredLocationUnblocked = true })
+            if spawnPoint <= 0 then
+                spawnPoint = game.CurrentRun.Hero.ObjectId
+            end
+            game.CreateLoot({ Name = chosenLootOption, SpawnPoint = spawnPoint, AutoLoadPackages = true})
         end
         chosenLootOption = game.RemoveRandomValue(lootOptions)
         if chosenLootOption and game.CurrentRun.EnteredBiomes + 1 == game.GameData.FullRunBiomeCount then
-            game.CreateLoot({ Name = chosenLootOption, OffsetX = -100, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true})
+            game.CreateLoot({ Name = chosenLootOption, SpawnPoint = game.CurrentRun.Hero.ObjectId, AutoLoadPackages = true})
         end
     end
 end
@@ -482,7 +486,7 @@ for index, roomName in ipairs(roomRewardRooms) do
 end
 
 modutil.mod.Path.Wrap("GiveRandomConsumables", function (base, args, trait, contextArgs)
-    if game.CurrentRun[_PLUGIN.guid .. "BossRush"] and (args.DestinationId == 591878 or args.DestinationId == 370001) then
+    if game.CurrentRun[_PLUGIN.guid .. "BossRush"] and (args.DestinationId == 591878 or args.ModsNikkelMHadesBiomesPreferredDestinationId == 370001 or args.DestinationId == 370001) then
         args.DestinationId = game.CurrentRun.Hero.ObjectId
         args.Force = 0
         args.ForceToValidLocation = true

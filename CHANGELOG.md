@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Fix Sisyphus' rewards sometimes spawning out of bounds.
+
 ## [0.3.3] - 2026-08-30
 
 - Fix Path of Stars not being offered after the first time.
